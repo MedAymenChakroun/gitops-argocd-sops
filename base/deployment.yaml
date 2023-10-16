@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webserver
+    stack: labs
+  name: webserver
+spec:
+#  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  strategy: {}
+  dfdfdsf: dsds
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/hpa-example
+        envFrom:
+        - configMapRef:
+            name: toto
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+          requests:
+            cpu: 100m
+status: {}
+---
+apiVersion: v1
+data:
+  toto: toto
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: toto
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: webserver
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 40
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webserver
