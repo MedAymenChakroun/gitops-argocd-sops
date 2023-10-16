@@ -12,5 +12,6 @@ spec:
   selector:
     app: webserver
   type: LoadBalancer
+  loadBalancerIP: 192.168.1.169
 status:
   loadBalancer: {}
