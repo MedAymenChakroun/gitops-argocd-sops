@@ -32,7 +32,7 @@ spec:
           name: custom-tools
           subPath: kustomize
           # Verify this matches a XDG_CONFIG_HOME=/.config env variable
-        - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
+        - mountPath: /usr/local/bin/ksops
           name: custom-tools
           subPath: ksops
 
