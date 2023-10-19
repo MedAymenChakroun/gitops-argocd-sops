@@ -4,7 +4,3 @@ resources:
 - service.yaml
 generators:
 - secret-generator.yaml
-generatorOptions:
-  labels:
-    deploy.type: kustomize
-  disableNameSuffixHash: true
